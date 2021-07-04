@@ -1,5 +1,8 @@
 # Coqui Inference Engine
 
+[![Covenant](https://camo.githubusercontent.com/7d620efaa3eac1c5b060ece5d6aacfcc8b81a74a04d05cd0398689c01c4463bb/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f436f6e7472696275746f72253230436f76656e616e742d76322e3025323061646f707465642d6666363962342e737667)](CODE_OF_CONDUCT.md)
+[![Gitter](https://badges.gitter.im/coqui-ai/inference-engine.svg)](https://gitter.im/coqui-ai/inference-engine?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+
 **Coqui Inference Engine** is a library for efficiently deploying speech models.
 
 This project is at an early proof-of-concept stage. Collaboration on design and implementation is very welcome. Join our Gitter channel by clicking the badge above!
@@ -12,9 +15,6 @@ Coqui Inference Engine aims to be:
 - Easy to use: simple, stable, well-documented API
 - Available: easy to expose to different programming languages, available in standard package managers
 - Extensible: able to handle different model types, architectures, and formats
-
-[![Covenant](https://camo.githubusercontent.com/7d620efaa3eac1c5b060ece5d6aacfcc8b81a74a04d05cd0398689c01c4463bb/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f436f6e7472696275746f72253230436f76656e616e742d76322e3025323061646f707465642d6666363962342e737667)](CODE_OF_CONDUCT.md)
-[![Gitter](https://badges.gitter.im/coqui-ai/inference-engine.svg)](https://gitter.im/coqui-ai/inference-engine?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 📰 [**Subscribe to the 🐸Coqui.ai Newsletter**](https://coqui.ai/?subscription=true)
 
