@@ -2,6 +2,9 @@
 
 #include "onnxruntime_session_options_config_keys.h"
 
+#include "spectrogram.h"
+#include "mfcc.h"
+
 using namespace Ort;
 using std::vector;
 
@@ -256,8 +259,20 @@ ONNXModelPackage::infer(std::vector<float>& mfcc,
 void
 ONNXModelPackage::compute_mfcc(const vector<float>& samples, vector<float>& mfcc_output)
 {
-  //TODO: feature computation graph/modules
-  for (int i = 0; i < n_features_; ++i) {
-    mfcc_output.push_back(1337.1337f);
+  std::vector<std::vector<float>> spectrogram_output;
+  tensorflow::Spectrogram spec;
+  spec.Initialize(audio_win_len_, audio_win_step_);
+  spec.ComputeSquaredMagnitudeSpectrogram(samples, &spectrogram_output);
+
+  if (spectrogram_output.size() == 0) {
+    return;
+  }
+
+  tensorflow::Mfcc mfcc;
+  mfcc.set_upper_frequency_limit(sample_rate_ / 2);
+  mfcc.set_dct_coefficient_count(n_features_);
+  mfcc.Initialize(spectrogram_output[0].size(), sample_rate_);
+  for (int i = 0; i < spectrogram_output.size(); ++i) {
+    mfcc.Compute(spectrogram_output[i], &mfcc_output);
   }
 }

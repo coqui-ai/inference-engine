@@ -236,6 +236,12 @@ CoquiStreamingState::processMfccWindow(const vector<float>& buf)
 void
 CoquiStreamingState::processBatch(vector<float>& buf, unsigned int n_steps)
 {
+  fprintf(stderr, "mfccs: [");
+  for (int i = 0; i < model_->n_features_; ++i) {
+    fprintf(stderr, "%.2f ", buf[i]);
+  }
+  fprintf(stderr, "%s]\n", n_steps > 1 ? "..." : "");
+
   vector<float> logits;
   model_->infer(buf,
                 n_steps,
@@ -247,6 +253,12 @@ CoquiStreamingState::processBatch(vector<float>& buf, unsigned int n_steps)
 
   const size_t num_classes = model_->alphabet_.GetSize() + 1; // +1 for blank
   const int n_frames = logits.size() / (CoquiModelPackage::BATCH_SIZE * num_classes);
+
+  fprintf(stderr, "logits: [");
+  for (int i = 0; i < num_classes; ++i) {
+    fprintf(stderr, "%.2f ", logits[i]);
+  }
+  fprintf(stderr, "%s]\n", n_frames > 1 ? "..." : "");
 
   // Convert logits to double
   vector<double> inputs(logits.begin(), logits.end());

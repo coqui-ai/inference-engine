@@ -4,6 +4,7 @@ project(coqui-inference-engine)
 
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
+set(CMAKE_SKIP_BUILD_RPATH False)
 
 add_executable(main src/main.cc
     src/stt.cc
@@ -64,6 +65,12 @@ add_executable(main src/main.cc
     third_party/openfst-1.6.7/src/lib/symbol-table.cc
     third_party/openfst-1.6.7/src/lib/util.cc
     third_party/openfst-1.6.7/src/lib/weight.cc
+    third_party/fft2d/fftsg.c
+    third_party/fft2d/fftsg2d.c
+    third_party/tensorflow/mfcc.cc
+    third_party/tensorflow/mfcc_dct.cc
+    third_party/tensorflow/mfcc_mel_filterbank.cc
+    third_party/tensorflow/spectrogram.cc
 )
 
 target_include_directories(main PUBLIC
@@ -74,6 +81,8 @@ target_include_directories(main PUBLIC
     third_party/object_pool
     third_party/ThreadPool
     third_party/cereal/include
+    third_party/fft2d
+    third_party/tensorflow
 )
 
 target_compile_definitions(main PUBLIC KENLM_MAX_ORDER=6)
