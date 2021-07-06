@@ -30,14 +30,14 @@ class MfccDct {
  public:
   MfccDct();
   bool Initialize(int input_length, int coefficient_count);
-  void Compute(const std::vector<float>& input,
-               std::vector<float>* output) const;
+  void Compute(const std::vector<double>& input,
+               std::vector<double>* output) const;
 
  private:
   bool initialized_;
   int coefficient_count_;
   int input_length_;
-  std::vector<std::vector<float> > cosines_;
+  std::vector<std::vector<double> > cosines_;
   TF_DISALLOW_COPY_AND_ASSIGN(MfccDct);
 };
 

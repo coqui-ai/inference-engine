@@ -42,10 +42,10 @@ bool MfccDct::Initialize(int input_length, int coefficient_count) {
   }
 
   cosines_.resize(coefficient_count_);
-  float fnorm = sqrt(2.0 / input_length_);
+  double fnorm = sqrt(2.0 / input_length_);
   // Some platforms don't have M_PI, so define a local constant here.
-  const float pi = std::atan(1) * 4;
-  float arg = pi / input_length_;
+  const double pi = std::atan(1) * 4;
+  double arg = pi / input_length_;
   for (int i = 0; i < coefficient_count_; ++i) {
     cosines_[i].resize(input_length_);
     for (int j = 0; j < input_length_; ++j) {
@@ -56,8 +56,8 @@ bool MfccDct::Initialize(int input_length, int coefficient_count) {
   return true;
 }
 
-void MfccDct::Compute(const std::vector<float> &input,
-                      std::vector<float> *output) const {
+void MfccDct::Compute(const std::vector<double> &input,
+                      std::vector<double> *output) const {
   if (!initialized_) {
     // LOG(ERROR) << "DCT not initialized.";
     return;
@@ -70,7 +70,7 @@ void MfccDct::Compute(const std::vector<float> &input,
   }
 
   for (int i = 0; i < coefficient_count_; ++i) {
-    float sum = 0.0;
+    double sum = 0.0;
     for (int j = 0; j < length; ++j) {
       sum += cosines_[i][j] * input[j];
     }

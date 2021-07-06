@@ -36,23 +36,23 @@ class MfccMelFilterbank {
   // Takes a squared-magnitude spectrogram slice as input, computes a
   // triangular-mel-weighted linear-magnitude filterbank, and places the result
   // in output.
-  void Compute(const std::vector<float>& input,
-               std::vector<float>* output) const;
+  void Compute(const std::vector<double>& input,
+               std::vector<double>* output) const;
 
  private:
-  float FreqToMel(float freq) const;
+  double FreqToMel(double freq) const;
   bool initialized_;
   int num_channels_;
   double sample_rate_;
   int input_length_;
-  std::vector<float> center_frequencies_;  // In mel, for each mel channel.
+  std::vector<double> center_frequencies_;  // In mel, for each mel channel.
 
   // Each FFT bin b contributes to two triangular mel channels, with
   // proportion weights_[b] going into mel channel band_mapper_[b], and
   // proportion (1 - weights_[b]) going into channel band_mapper_[b] + 1.
   // Thus, weights_ contains the weighting applied to each FFT bin for the
   // upper-half of the triangular band.
-  std::vector<float> weights_;  // Right-side weight for this fft  bin.
+  std::vector<double> weights_;  // Right-side weight for this fft  bin.
 
   // FFT bin i contributes to the upper side of mel channel band_mapper_[i]
   std::vector<int> band_mapper_;

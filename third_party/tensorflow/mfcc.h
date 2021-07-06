@@ -39,8 +39,8 @@ class Mfcc {
   // triangular mel filterbank, and a discrete cosine transform (DCT) of the
   // values is taken. Output is populated with the lowest dct_coefficient_count
   // of these values.
-  void Compute(const std::vector<float>& spectrogram_frame,
-               std::vector<float>* output) const;
+  void Compute(const std::vector<double>& spectrogram_frame,
+               std::vector<double>* output) const;
 
   void set_upper_frequency_limit(double upper_frequency_limit) {
     assert(!initialized_); // "Set frequency limits before calling Initialize."

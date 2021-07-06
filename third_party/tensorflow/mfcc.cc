@@ -42,16 +42,16 @@ bool Mfcc::Initialize(int input_length, double input_sample_rate) {
   return initialized;
 }
 
-void Mfcc::Compute(const std::vector<float>& spectrogram_frame,
-                   std::vector<float>* output) const {
+void Mfcc::Compute(const std::vector<double>& spectrogram_frame,
+                   std::vector<double>* output) const {
   if (!initialized_) {
     // LOG(ERROR) << "Mfcc not initialized.";
     return;
   }
-  std::vector<float> working;
+  std::vector<double> working;
   mel_filterbank_.Compute(spectrogram_frame, &working);
   for (int i = 0; i < working.size(); ++i) {
-    float val = working[i];
+    double val = working[i];
     if (val < kFilterbankFloor) {
       val = kFilterbankFloor;
     }

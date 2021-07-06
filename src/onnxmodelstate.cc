@@ -259,7 +259,7 @@ ONNXModelPackage::infer(std::vector<float>& mfcc,
 void
 ONNXModelPackage::compute_mfcc(const vector<float>& samples, vector<float>& mfcc_output)
 {
-  std::vector<std::vector<float>> spectrogram_output;
+  std::vector<std::vector<double>> spectrogram_output;
   tensorflow::Spectrogram spec;
   spec.Initialize(audio_win_len_, audio_win_step_);
   spec.ComputeSquaredMagnitudeSpectrogram(samples, &spectrogram_output);
@@ -269,10 +269,15 @@ ONNXModelPackage::compute_mfcc(const vector<float>& samples, vector<float>& mfcc
   }
 
   tensorflow::Mfcc mfcc;
+  vector<double> output_temp;
   mfcc.set_upper_frequency_limit(sample_rate_ / 2);
   mfcc.set_dct_coefficient_count(n_features_);
   mfcc.Initialize(spectrogram_output[0].size(), sample_rate_);
   for (int i = 0; i < spectrogram_output.size(); ++i) {
-    mfcc.Compute(spectrogram_output[i], &mfcc_output);
+    mfcc.Compute(spectrogram_output[i], &output_temp);
+  }
+
+  for (double el : output_temp) {
+    mfcc_output.push_back(static_cast<float>(el));
   }
 }
